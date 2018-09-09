@@ -19,4 +19,15 @@
             </class>
         </classes>
     </test>
+    <test name="ParametrizedTests">
+        <parameter name="positive" value="true"/>
+        <parameter name="expectedTitle" value="Welcome: Mercury Tours"/>
+        <classes>
+            <class name="TestDDT">
+                <methods>
+                    <include name="testTitleParametrized"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

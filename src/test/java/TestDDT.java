@@ -1,4 +1,5 @@
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -34,5 +35,28 @@ public class TestDDT extends TestBase {
         actualTitle = driver.getTitle();
 
         Assert.assertNotEquals( expectedTitle, actualTitle );
+    }
+
+    @DataProvider( name = "DataProviderParametrized" )
+    public static Object[][] DataProviderParametrized(ITestContext context) {
+        String expectedTitle = context.getCurrentXmlTest().getParameter("expectedTitle");
+        boolean positive = Boolean.parseBoolean(context.getCurrentXmlTest().getParameter("positive"));
+        return new Object[][]{
+                {expectedTitle, positive}
+        };
+    }
+
+    @Test( dataProvider = "DataProviderParametrized" )
+    public void testTitleParametrized( String expectedTitle, boolean positive ) {
+        String actualTitle = "";
+
+        actualTitle = driver.getTitle();
+
+        if (positive){
+            Assert.assertEquals( expectedTitle, actualTitle );
+        } else {
+            Assert.assertNotEquals( expectedTitle, actualTitle );
+        }
+
     }
 }

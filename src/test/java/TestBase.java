@@ -4,14 +4,16 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 public class TestBase {
-    public static WebDriver driver;
+    public WebDriver driver;
 
     @BeforeTest
     public void start() {
         System.setProperty( "webdriver.chrome.driver", "D:\\chromedriver.exe" );
         driver = new ChromeDriver();
 
-        String baseUrl = "http://demo.guru99.com/test/newtours/";
+
+        //String baseUrl = "http://demo.guru99.com/test/newtours/";
+        String baseUrl = "http://demoqa.com/";
         driver.navigate().to( baseUrl );
     }
 
