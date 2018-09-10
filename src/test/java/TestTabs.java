@@ -5,6 +5,8 @@ import org.testng.asserts.SoftAssert;
 
 public class TestTabs extends TestBase {
 
+    static int numberOfTabs =  5;
+
     @Test
     public void testTabs() {
         String title = "Demoqa | Just another WordPress site";
@@ -41,14 +43,15 @@ public class TestTabs extends TestBase {
 
     @Test
     public void testTabsPageObject(){
-        PageHome pageHome = new PageHome(driver);
-
-        Assert.assertTrue(pageHome.verifyTitle());
-
-        int tabs = 5;
+        String expectedTitle = "Demoqa | Just another WordPress site";
         String tabsContent = "Content %s Title";
 
-        SoftAssert softAssert = pageHome.verifyTabsContent(tabs, tabsContent);
+        PageHome pageHome = PageHome.open( driver );
+
+        Assert.assertEquals(expectedTitle, pageHome.getTitle());
+
+        SoftAssert softAssert = pageHome.verifyTabsContent(numberOfTabs, tabsContent);
+
         softAssert.assertAll();
     }
 }

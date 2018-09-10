@@ -14,6 +14,9 @@ public class TestDDT extends TestBase {
 
     @Test( dataProvider = "DataProvider" )
     public void testTitle( String expectedTitle ) {
+        String baseUrl = "http://demo.guru99.com/test/newtours/";
+        driver.navigate().to( baseUrl );
+
         String actualTitle = "";
 
         actualTitle = driver.getTitle();
@@ -30,6 +33,9 @@ public class TestDDT extends TestBase {
 
     @Test( dataProvider = "DataProviderNegative" )
     public void testTitleNegative( String expectedTitle ) {
+        String baseUrl = "http://demo.guru99.com/test/newtours/";
+        driver.navigate().to( baseUrl );
+
         String actualTitle = "";
 
         actualTitle = driver.getTitle();
@@ -48,6 +54,9 @@ public class TestDDT extends TestBase {
 
     @Test( dataProvider = "DataProviderParametrized" )
     public void testTitleParametrized( String expectedTitle, boolean positive ) {
+        String baseUrl = "http://demo.guru99.com/test/newtours/";
+        driver.navigate().to( baseUrl );
+
         String actualTitle = "";
 
         actualTitle = driver.getTitle();

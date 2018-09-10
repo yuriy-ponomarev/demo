@@ -11,10 +11,6 @@ public class TestBase {
         System.setProperty( "webdriver.chrome.driver", "D:\\chromedriver.exe" );
         driver = new ChromeDriver();
 
-
-        //String baseUrl = "http://demo.guru99.com/test/newtours/";
-        String baseUrl = "http://demoqa.com/";
-        driver.navigate().to( baseUrl );
     }
 
     @AfterTest

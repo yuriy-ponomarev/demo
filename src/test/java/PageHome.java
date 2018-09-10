@@ -8,13 +8,18 @@ public class PageHome extends PageBase{
         super(driver);
     }
 
+    public static String baseUrl = "https://demoqa.com/";
+
     public static final String TAB_LOCATOR = "ui-id-%s";
     public static final String TAB_BOLD_TEXT_LOCATOR = "//div[@id='tabs-%s']//b";
 
-    public String title = "Demoqa | Just another WordPress site";
+    public static PageHome open( WebDriver driver) {
+        driver.navigate().to( baseUrl );
+        return new PageHome( driver );
+    }
 
-    public boolean verifyTitle(){
-        return driver.getTitle().equals(title);
+    public String getTitle(){
+        return driver.getTitle();
     }
 
     public SoftAssert verifyTabsContent(int tabs, String tabsContent){
