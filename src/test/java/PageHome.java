@@ -1,6 +1,5 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
 
 public class PageHome extends PageBase{
 
@@ -22,26 +21,19 @@ public class PageHome extends PageBase{
         return driver.getTitle();
     }
 
-    public SoftAssert verifyTabsContent(int tabs, String tabsContent){
-        SoftAssert softAssert = new SoftAssert();
-        for (Integer i = 1; i <= tabs; i++){
-            String tabNumber = i.toString();
-            String tabContent = String.format(tabsContent, tabNumber);
+    public void openTab(Integer tabNumber){
+        driver.findElement(By.id(String.format(TAB_LOCATOR, tabNumber))).click();
+    }
 
-            driver.findElement(By.id(String.format(TAB_LOCATOR, tabNumber))).click();
+    public boolean tabContentIsVisible (Integer tabNumber){
+          return driver.findElement(By
+                  .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
+                  .isDisplayed();
+    }
 
-            softAssert.assertTrue(driver.findElement(By
-                    .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
-                    .isDisplayed());
-
-            System.out.println(driver.findElement(By
-                    .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
-                    .getText());
-
-            softAssert.assertEquals(driver.findElement(By
-                    .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
-                    .getText(), tabContent);
-        }
-        return softAssert;
+    public String getTabContent(Integer tabNumber){
+        return driver.findElement(By
+                .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
+                .getText();
     }
 }

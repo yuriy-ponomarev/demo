@@ -5,12 +5,12 @@ import org.testng.asserts.SoftAssert;
 
 public class TestTabs extends TestBase {
 
-    static int numberOfTabs =  5;
+    static int numberOfTabs = 5;
 
     @Test
     public void testTabs() {
         String title = "Demoqa | Just another WordPress site";
-        Assert.assertEquals(driver.getTitle(), title);
+        Assert.assertEquals( driver.getTitle(), title );
 
         /*
         driver.findElement(By.id("ui-id-1")).click();
@@ -25,32 +25,41 @@ public class TestTabs extends TestBase {
         String TAB_LOCATOR = "ui-id-%s";
         String TAB_BOLD_TEXT_LOCATOR = "//div[@id='tabs-%s']//b";
 
-        for (Integer i = 1; i <= 5; i++){
+        for ( Integer i = 1; i <= 5; i++ ) {
             String tabNumber = i.toString();
-            String tabContent = String.format("Content %s Title", tabNumber);
+            String tabContent = String.format( "Content %s Title", tabNumber );
 
-            driver.findElement(By.id(String.format(TAB_LOCATOR, tabNumber))).click();
+            driver.findElement( By.id( String.format( TAB_LOCATOR, tabNumber ) ) ).click();
 
-            Assert.assertTrue(driver.findElement(By
-                    .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
-                    .isDisplayed());
+            Assert.assertTrue( driver.findElement( By
+                    .xpath( String.format( TAB_BOLD_TEXT_LOCATOR, tabNumber ) ) )
+                    .isDisplayed() );
 
-            Assert.assertEquals(driver.findElement(By
-                    .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
-                    .getText(), tabContent);
+            Assert.assertEquals( driver.findElement( By
+                    .xpath( String.format( TAB_BOLD_TEXT_LOCATOR, tabNumber ) ) )
+                    .getText(), tabContent );
         }
     }
 
     @Test
-    public void testTabsPageObject(){
+    public void testTabsPageObject() {
         String expectedTitle = "Demoqa | Just another WordPress site";
         String tabsContent = "Content %s Title";
 
         PageHome pageHome = PageHome.open( driver );
 
-        Assert.assertEquals(expectedTitle, pageHome.getTitle());
+        Assert.assertEquals( expectedTitle, pageHome.getTitle() );
 
-        SoftAssert softAssert = pageHome.verifyTabsContent(numberOfTabs, tabsContent);
+        SoftAssert softAssert = new SoftAssert();
+
+        for ( int i = 1; i <= numberOfTabs; i++ ) {
+            String expectedText = String.format( tabsContent, i );
+
+            pageHome.openTab( i );
+
+            softAssert.assertTrue( pageHome.tabContentIsVisible( i ) );
+            softAssert.assertEquals( expectedText, pageHome.getTabContent( i ) );
+        }
 
         softAssert.assertAll();
     }
