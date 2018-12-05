@@ -1,7 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class PageHome extends PageBase{
+public class PageHome extends PageBase {
 
     public PageHome (WebDriver driver) {
         super(driver);
@@ -15,6 +15,9 @@ public class PageHome extends PageBase{
     public static PageHome open( WebDriver driver) {
         driver.navigate().to( baseUrl );
         return new PageHome( driver );
+    }
+
+    public void waitUntilPageLoaded() {
     }
 
     public String getTitle(){
@@ -35,5 +38,9 @@ public class PageHome extends PageBase{
         return driver.findElement(By
                 .xpath(String.format(TAB_BOLD_TEXT_LOCATOR, tabNumber)))
                 .getText();
+    }
+
+    public FlightsPage findFlights( String cityFrom, String cityTo ) {
+        return new FlightsPage( driver );
     }
 }
